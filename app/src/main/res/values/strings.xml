@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Send To RPB</string>
+    <string name="freq_blink">Frequency:</string>
+    <string name="input_freq_blink">Input Hz</string>
+    <string name="on">ON RPB</string>
+    <string name="on_message">Confirm ON?</string>
+    <string name="off">Off RPB</string>
+    <string name="off_message">Confirm Off?</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="red">R</string>
+    <string name="blue">B</string>
+    <string name="green">G</string>
+</resources>
