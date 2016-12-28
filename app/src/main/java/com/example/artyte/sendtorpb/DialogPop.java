@@ -38,7 +38,7 @@ public class DialogPop extends DialogFragment {
             builder.setMessage("Confirm On with: " + String.valueOf(getArguments().getInt("hertz")) + "Hz?")
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Socket socket = new Socket("192",123);
+                            Socket socket = new Socket("1921",123);
 
                         }
                     })
