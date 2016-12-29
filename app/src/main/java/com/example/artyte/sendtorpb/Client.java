@@ -4,20 +4,19 @@ package com.example.artyte.sendtorpb;
  * Created by Artyte on 2016/12/29.
  */
 
-import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.widget.TextView;
 
 public class Client extends AsyncTask<Void, Void, Void> {
 
     private String dstAddress;
     private int dstPort;
     private int dstFrame;
+    private String response;
 
     Client(String addr, int port, int frame) {
         dstAddress = addr;
@@ -33,26 +32,15 @@ public class Client extends AsyncTask<Void, Void, Void> {
         try {
             socket = new Socket(dstAddress, dstPort);
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
-            byte[] buffer = new byte[1024];
+            OutputStream outToServer = socket.getOutputStream();
+            DataOutputStream out = new DataOutputStream(outToServer);
 
-            int bytesRead;
-            InputStream inputStream = socket.getInputStream();
-
-         /*
-          * notice: inputStream.read() will block if no data return
-          */
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, bytesRead);
-                response += byteArrayOutputStream.toString("UTF-8");
-            }
+            out.writeUTF(Integer.toString(dstFrame));
 
         } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             response = "UnknownHostException: " + e.toString();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             response = "IOException: " + e.toString();
         } finally {
@@ -60,7 +48,6 @@ public class Client extends AsyncTask<Void, Void, Void> {
                 try {
                     socket.close();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -70,7 +57,6 @@ public class Client extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        textResponse.setText(response);
         super.onPostExecute(result);
     }
 
