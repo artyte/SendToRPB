@@ -21,8 +21,8 @@ public class DialogPop extends DialogFragment {
         args.putInt("hertz", i);
         args.putBoolean("id", id);
         args.putInt("red",rgb[0]);
-        args.putInt("red",rgb[1]);
-        args.putInt("red",rgb[2]);
+        args.putInt("blue",rgb[1]);
+        args.putInt("green",rgb[2]);
         f.setArguments(args);
 
         return f;
@@ -34,11 +34,16 @@ public class DialogPop extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        if(getArguments().getBoolean("id")==true) {
+        //Data frame sent is [hertz[0] rgb[0], rgb[1], rgb[2]]
+        if(getArguments().getBoolean("id")) {
             builder.setMessage("Confirm On with: " + String.valueOf(getArguments().getInt("hertz")) + "Hz?")
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Client myClient = new Client("123", 6066, response);
+                            int frame = (getArguments().getInt("hertz") % 10) * 1000 +
+                                        (getArguments().getInt("red")) * 100 +
+                                        (getArguments().getInt("blue")) * 10 +
+                                        (getArguments().getInt("green"));
+                            Client myClient = new Client("123", 6066, frame);
                             myClient.execute();
                         }
                     })
@@ -51,11 +56,13 @@ public class DialogPop extends DialogFragment {
             builder.setMessage("Confirm Off?")
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-
+                            Client myClient = new Client("123", 6066, 0000);
+                            myClient.execute();
                         }
                     })
                     .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+
                         }
                     });
         }

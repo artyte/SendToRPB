@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
-    protected void showDialog(View v) {
+    protected void showDialogOn(View v) {
         EditText text = (EditText) findViewById(R.id.input_freq_blink);
         if(text.getText().toString().length() == 0) return;
         int i = Integer.parseInt(text.getText().toString());
@@ -35,6 +35,12 @@ public class MainActivity extends Activity {
         if(rgb[2].isChecked()) numRGB[2]=1;
 
         DialogFragment newFragment = DialogPop.newInstance(i, id, numRGB);
+        newFragment.show(getFragmentManager(), "dialog");
+    }
+
+    protected void showDialogOff() {
+        int[] numRGB = {0,0,0};
+        DialogFragment newFragment = DialogPop.newInstance(0, false, numRGB);
         newFragment.show(getFragmentManager(), "dialog");
     }
 }

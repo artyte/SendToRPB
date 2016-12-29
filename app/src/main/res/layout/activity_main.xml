@@ -122,7 +122,7 @@
             android:layout_weight="1"
             android:text="@string/off"
             android:textSize="40pt"
-            android:onClick="showDialog"/>
+            android:onClick="showDialogOff"/>
 
         <Button
             android:id="@+id/on"
@@ -131,7 +131,7 @@
             android:layout_weight="1"
             android:text="@string/on"
             android:textSize="40pt"
-            android:onClick="showDialog"/>
+            android:onClick="showDialogOn"/>
 
     </LinearLayout>
 

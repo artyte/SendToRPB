@@ -10,19 +10,19 @@ import java.io.InputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.widget.TextView;
 
 public class Client extends AsyncTask<Void, Void, Void> {
 
-    String dstAddress;
-    int dstPort;
-    String response = "";
-    TextView textResponse;
+    private String dstAddress;
+    private int dstPort;
+    private int dstFrame;
 
-    Client(String addr, int port, TextView textResponse) {
+    Client(String addr, int port, int frame) {
         dstAddress = addr;
         dstPort = port;
-        this.textResponse = textResponse;
+        dstFrame = frame;
     }
 
     @Override
@@ -33,8 +33,7 @@ public class Client extends AsyncTask<Void, Void, Void> {
         try {
             socket = new Socket(dstAddress, dstPort);
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(
-                    1024);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
             byte[] buffer = new byte[1024];
 
             int bytesRead;
