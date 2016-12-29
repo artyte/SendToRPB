@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
         newFragment.show(getFragmentManager(), "dialog");
     }
 
-    protected void showDialogOff() {
+    protected void showDialogOff(View v) {
         int[] numRGB = {0,0,0};
         DialogFragment newFragment = DialogPop.newInstance(0, false, numRGB);
         newFragment.show(getFragmentManager(), "dialog");
